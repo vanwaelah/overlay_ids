@@ -3,85 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Idsphone eFootball Stream Overlay</title>
+<title>Idsphone Overlay - Side Motion</title>
 <style>
-  :root { --neon:#39ff14; --neon2:#a6ff7a; --bg:#050907; }
-  * { box-sizing:border-box; }
-  html,body { margin:0; width:100%; height:100%; overflow:hidden; background:transparent; }
-  body { font-family: "Arial Black", Impact, system-ui, sans-serif; color:#fff; }
-  .stage { position:absolute; inset:0; pointer-events:none; }
-  .banner {
-    position:absolute; left:3%; right:3%; top:5%;
-    height:88px; display:flex; align-items:center; gap:20px;
-    padding:10px 20px; overflow:hidden;
-    background:linear-gradient(100deg,rgba(2,8,4,.94),rgba(7,20,10,.86) 55%,rgba(2,8,4,.92));
-    border:1px solid rgba(57,255,20,.82);
-    clip-path:polygon(0 0,98.5% 0,100% 22%,100% 100%,1.5% 100%,0 78%);
-    box-shadow:0 0 10px rgba(57,255,20,.6), inset 0 0 22px rgba(57,255,20,.08);
-    animation: entrance .9s cubic-bezier(.2,.8,.2,1) both;
-  }
-  .banner:before {
-    content:""; position:absolute; left:0; top:0; bottom:0; width:5px;
-    background:var(--neon); box-shadow:0 0 18px var(--neon);
-  }
-  .brand {
-    position:relative; z-index:2; flex:0 0 auto; display:flex; align-items:center; gap:12px;
-    min-width:210px; padding-right:22px; border-right:1px solid rgba(57,255,20,.45);
-  }
-  .mark {
-    width:48px; height:48px; display:grid; place-items:center; position:relative;
-    color:#061006; font-size:22px; font-style:italic; font-weight:1000;
-    background:var(--neon); transform:skew(-10deg);
-    box-shadow:0 0 18px rgba(57,255,20,.65);
-  }
-  .mark:after { content:""; position:absolute; inset:4px; border:1px solid rgba(0,0,0,.55); }
-  .brandname { font-size:23px; line-height:1; letter-spacing:1.8px; text-shadow:0 0 10px rgba(57,255,20,.5); }
-  .brandname small { display:block; margin-top:6px; font:700 9px/1.1 Arial,sans-serif; letter-spacing:3px; color:var(--neon); }
-  .live { display:flex; align-items:center; gap:7px; position:relative; z-index:2; flex:0 0 auto; font:900 10px Arial,sans-serif; letter-spacing:2px; color:var(--neon2); }
-  .dot { width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 12px var(--neon);animation:pulse 1.2s infinite; }
-  .ticker-window { position:relative; z-index:1; flex:1; overflow:hidden; height:100%; display:flex; align-items:center; }
-  .ticker { white-space:nowrap; display:flex; width:max-content; align-items:center; animation:scroll 18s linear infinite; }
-  .ticker span { font-size:21px; letter-spacing:2px; padding-right:42px; }
-  .ticker b { color:var(--neon); text-shadow:0 0 12px rgba(57,255,20,.6); }
-  .slashes { position:absolute; right:0; top:0; bottom:0; width:45px; opacity:.5; background:repeating-linear-gradient(125deg,transparent 0 7px,var(--neon) 8px 10px,transparent 11px 17px); }
-  .bottomline { position:absolute; left:4%; right:4%; top:calc(5% + 91px); height:2px; background:linear-gradient(90deg,transparent,var(--neon),rgba(57,255,20,.1),transparent); box-shadow:0 0 10px var(--neon); transform-origin:left; animation:lineIn 1.2s ease-out both; }
-  .corner { position:absolute; width:30px; height:30px; border-color:var(--neon); opacity:.85; }
-  .corner.tl { top:3.5%;left:2%;border-top:2px solid;border-left:2px solid; }
-  .corner.tr { top:3.5%;right:2%;border-top:2px solid;border-right:2px solid; }
-  @keyframes scroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.75)} }
-  @keyframes entrance { from{opacity:0;transform:translateY(-24px) skewX(-1deg)} to{opacity:1;transform:translateY(0) skewX(0)} }
-  @keyframes lineIn { from{transform:scaleX(0);opacity:0} to{transform:scaleX(1);opacity:1} }
-  @media (max-width:800px) {
-    .banner { left:2%;right:2%;height:68px;padding:8px 12px;gap:12px; }
-    .brand { min-width:155px;gap:8px;padding-right:12px; }
-    .mark { width:38px;height:38px;font-size:18px; }
-    .brandname { font-size:17px;letter-spacing:1px; }
-    .brandname small { font-size:7px;letter-spacing:2px; }
-    .ticker span { font-size:15px;letter-spacing:1px;padding-right:26px; }
-    .live { font-size:8px;letter-spacing:1px; }
-    .bottomline { top:calc(5% + 71px); }
-  }
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent!important}
+.stage{position:relative;width:100vw;height:100vh;overflow:hidden;background:transparent}
+.banner{
+ position:absolute;left:1%;top:12%;width:98%;
+ animation:sideMove 4.6s ease-in-out infinite,glowPulse 3.4s ease-in-out infinite;
+ transform:translateX(0);will-change:transform,filter;
+}
+.banner img{display:block;width:100%;height:auto}
+.shine{
+ position:absolute;top:4%;bottom:4%;left:-25%;width:16%;
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),rgba(255,255,255,.72),rgba(0,217,255,.3),transparent);
+ transform:skewX(-22deg);filter:blur(2px);mix-blend-mode:screen;
+ animation:shineMove 5.2s ease-in-out infinite;
+}
+.spark{position:absolute;width:5px;height:5px;border-radius:50%;background:white;
+ box-shadow:0 0 10px 3px #00d9ff;opacity:0;top:45%;left:-2%;
+ animation:sparkMove 4.5s linear infinite}
+.spark.pink{top:66%;animation-delay:1.5s;box-shadow:0 0 10px 3px #ff159b}
+@keyframes sideMove{
+ 0%,100%{transform:translateX(-10px)}
+ 50%{transform:translateX(10px)}
+}
+@keyframes glowPulse{
+ 0%,100%{filter:drop-shadow(0 0 4px rgba(0,217,255,.18))}
+ 50%{filter:drop-shadow(0 0 12px rgba(0,217,255,.4)) drop-shadow(0 0 5px rgba(255,21,155,.24))}
+}
+@keyframes shineMove{
+ 0%,8%{left:-25%;opacity:0}
+ 18%{opacity:.85}
+ 65%{left:112%;opacity:.7}
+ 66%,100%{left:112%;opacity:0}
+}
+@keyframes sparkMove{
+ 0%{transform:translateX(0) scale(.2);opacity:0}
+ 12%{opacity:.85}
+ 85%{opacity:.65}
+ 100%{transform:translateX(105vw) scale(1);opacity:0}
+}
+@media(max-aspect-ratio:4/3){.banner{width:120%;left:-10%;top:18%}}
 </style>
 </head>
 <body>
-<div class="stage" aria-label="Idsphone eFootball streaming overlay">
-  <div class="corner tl"></div><div class="corner tr"></div>
-  <div class="banner">
-    <div class="brand">
-      <div class="mark">I</div>
-      <div class="brandname">IDSPHONE<small>eFOOTBALL PATCH</small></div>
-    </div>
-    <div class="live"><i class="dot"></i> LIVE</div>
-    <div class="ticker-window">
-      <div class="ticker">
-        <span>WELCOME TO <b>IDSPHONE</b> &nbsp;•&nbsp; eFOOTBALL PATCH &nbsp;•&nbsp; <b>FOLLOW</b> FOR MORE</span>
-        <span>WELCOME TO <b>IDSPHONE</b> &nbsp;•&nbsp; eFOOTBALL PATCH &nbsp;•&nbsp; <b>FOLLOW</b> FOR MORE</span>
-      </div>
-    </div>
-    <div class="slashes"></div>
-  </div>
-  <div class="bottomline"></div>
+<div class="stage">
+ <div class="banner">
+  <img src="idsphone_overlay.png" alt="Idsphone eFootball stream overlay">
+  <div class="shine"></div>
+ </div>
+ <i class="spark"></i><i class="spark pink"></i>
 </div>
 </body>
 </html>
